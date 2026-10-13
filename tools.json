@@ -1,0 +1,107 @@
+[
+    {
+        "type": "function",
+        "function": {
+            "name": "open_app",
+            "description": "Открывает приложение или сайт по ключу",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "description": "Ключ из apps.json, например 'Telegram_app'"
+                    }
+                },
+                "required": ["key"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_weather",
+            "description": "Возвращает текущую погоду",
+            "parameters": {
+                "type": "object",
+                "properties": {}
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "remember",
+            "description": "Сохраняет факт в память пользователя",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "key": {"type": "string"},
+                    "value": {"type": "string"}
+                },
+                "required": ["key", "value"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "search_files",
+            "description": "Ищет файлы на рабочем столе, в загрузках и документах по имени или части имени",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "nof": {
+                        "type": "string",
+                        "description": "Имя или часть имени файла для поиска"
+                    }
+                },
+                "required": ["nof"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "workplace",
+            "description": "Открывает необходимые приложения для работы",
+            "parameters": {
+                "type": "object",
+                "properties": {}
+            }
+        }
+    },
+    {
+    "type": "function",
+    "function": {
+        "name": "yandex_search",
+        "description": "Открывает Яндекс с поисковым запросом",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "query": {
+                    "type": "string",
+                    "description": "Поисковый запрос"
+                }
+            },
+            "required": ["query"]
+            }
+        }
+    },
+    {
+    "type": "function",
+    "function": {
+        "name": "yandex_translate",
+        "description": "Открывает Яндекс Переводчик с указанным словом",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "word": {
+                    "type": "string",
+                    "description": "Слово или фраза для перевода"
+                }
+            },
+            "required": ["word"]
+        }
+    }
+}
+]

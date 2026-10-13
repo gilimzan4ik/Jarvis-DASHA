@@ -1,0 +1,9 @@
+.venv/
+pycache/
+*.pyc
+token.txt
+apps.json
+cache.json
+context.json
+memory.json
+API
