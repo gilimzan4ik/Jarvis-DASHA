@@ -1,10 +1,16 @@
 .venv/
 pycache/
 *.pyc
+#token for a bot in Telegram
 token.txt
+#A list and the path to the applications and websites for accessing them.
 apps.json
+#The latest messages and replies from DASHA in the last 24 hours.
 cache.json
-context.json
+context.json //
+#Prompts, facts, and instructions for DASHA
 memory.json
+#API for connecting to the neural network
 API
+#A script for parsing a college website and generating the schedule.
 schedule.py
