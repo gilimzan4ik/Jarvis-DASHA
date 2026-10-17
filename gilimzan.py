@@ -166,7 +166,7 @@ def open_app(clue):
         subprocess.Popen([link["Browser_app"], asses])
 
     else:
-        print(f"Неизвестный тип ключа: {key}")
+        print(f"Неизвестный тип ключа: {clue}")
 
 def yandex_search(query):
     url = f"https://yandex.ru/search/?text={query}"
