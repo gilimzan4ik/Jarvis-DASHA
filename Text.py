@@ -1,8 +1,8 @@
 # Домашний Ассистент Широкой Автоматизации - T
-from gilimzan import jarvis_process, typing
+from gilimzan import jarvis_process, typing, open_app
 
 typing("Доброе утро, сэр")
-
+open_app("Happ_app")
 def listen():
     text = input("Ты: ")
     return text

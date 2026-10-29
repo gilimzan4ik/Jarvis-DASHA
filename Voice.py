@@ -1,7 +1,7 @@
 # Домашний Ассистент Широкой Автоматизации - Г
 import pyttsx3
 import speech_recognition as sr
-from gilimzan import jarvis_process
+from gilimzan import jarvis_process, open_app
 
 opts = {
     "alias": ('даша', 'даш', 'дарья', 'дора', 'дар', 'дашенька', 'дашуля', "джарвис"),
@@ -20,7 +20,7 @@ def speak(for_speak):
     engine.runAndWait()
 
 speak("Доброе утро, сэр")
-
+open_app("Happ_app")
 def listen():
     r = sr.Recognizer()
     text = ""

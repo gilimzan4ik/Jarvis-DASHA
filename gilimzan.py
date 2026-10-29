@@ -120,19 +120,6 @@ def load_json():
 
 link = load_json()
 
-def get_time_of_day():
-    now = datetime.now()
-    hour = now.hour
-
-    if 4 <= hour <= 10:
-        return "утро"
-    elif 10 < hour <= 17:
-        return "день"
-    elif 17 < hour <= 22:
-        return "вечер"
-    else:
-        return "ночь"
-
 def get_weather():
     try:
         response = requests.get(link["weather_site"], timeout=5)
@@ -318,7 +305,6 @@ def jarvis_process(cmd):
                 return "Запомнил, сэр."
             else:
                 return "Скажи так: 'запомни: ключ: значение'"
-
 
         elif "найди файл" in cmd:
             text = cmd.replace("найди файл", "").strip()
