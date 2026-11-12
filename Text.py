@@ -9,7 +9,7 @@ tbr = ('скажи', 'произнеси', 'озвучь', 'сколько', 'р
 
 def listen():
     text = input("Ты: ")
-    return text
+    return text.lower()
 
 while True:
     text = listen()

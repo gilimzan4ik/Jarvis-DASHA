@@ -25,7 +25,7 @@ sleeping = False
 
 try:
     while True:
-        heard = listen()
+        heard = listen().lower()
         if not heard or is_echo(heard):
             continue
 
@@ -63,7 +63,7 @@ try:
             clean_question = clean_question.replace(w, "").strip()
 
         # Отправка в мозг
-        answer = jarvis_process(clean_question)
+        answer = jarvis_process(clean_question).lower()
 
         # Озвучка ответа
         jarvis_voice.say(answer)
