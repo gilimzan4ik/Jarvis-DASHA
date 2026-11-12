@@ -1,58 +1,73 @@
 # Домашний Ассистент Широкой Автоматизации - Г
-import pyttsx3
-import speech_recognition as sr
-from gilimzan import jarvis_process, open_app
+import difflib
+from voice_engine import Voice, prewarm_voice
+from ears import listen, init_vosk, split_wake
+from gilimzan import jarvis_process
+import threading
 
-opts = {
-    "alias": ('даша', 'даш', 'дарья', 'дора', 'дар', 'дашенька', 'дашуля', "джарвис"),
-    "tbr": ('скажи', 'произнеси',  'озвучь',  'сколько',  'расскажи'),
-}
 
-def is_called(text):
-    for alias in opts["alias"]:
-        if alias in text:
-            return True
-    return False
+jarvis_voice = Voice()
+init_vosk()
+tbr = ('скажи', 'произнеси', 'озвучь', 'сколько', 'расскажи')
 
-def speak(for_speak):
-    engine = pyttsx3.init()
-    engine.say(for_speak)
-    engine.runAndWait()
+threading.Thread(target=prewarm_voice, args=(jarvis_voice,), daemon=True).start()
 
-speak("Доброе утро, сэр")
-open_app("Happ_app")
-def listen():
-    r = sr.Recognizer()
-    text = ""
-    with sr.Microphone() as source:
-        print("Говори: ")
-        audio = r.listen(source)
+jarvis_voice.say("Системы запущены, слушаю")
+jarvis_voice.wait()
 
-    try:
-        text = r.recognize_google(audio, language="ru-RU").lower()
-        print(f"[log] Распознано: {text}")
-        if is_called(text):
-            for x in opts['alias']:
-                text = text.replace(x, "").strip()
-            for x in opts['tbr']:
-                text = text.replace(x, "").strip()
+def is_echo(text):
+    words = text.split()
+    if len(words) < 2:
+        return False
+    return any(difflib.SequenceMatcher(None, text, r).ratio() > 0.7 for r in jarvis_voice.recent)
 
-    except sr.UnknownValueError:
-        print("Не удалось распознать речь")
-    except sr.RequestError:
-        print("Ошибка сервиса распознавания")
+sleeping = False
 
-    return text
+try:
+    while True:
+        heard = listen()
+        if not heard or is_echo(heard):
+            continue
 
-while True:
-        question = listen()
+        woke, clean_question = split_wake(heard)
 
-        if question == "привет":
-            speak("приветствую вас, сэр")
+        # Логика сна
+        if sleeping:
+            if not woke:
+                continue
+            sleeping = False
 
-        elif question == "":
-            speak("Ничего не распознано")
+        # Если разбудили, но команду не сказали
+        if woke and not clean_question:
+            jarvis_voice.say("Да, сэр?")
+            jarvis_voice.wait()
+            clean_question = listen(timeout=8)
+            if not clean_question or is_echo(clean_question):
+                continue
 
-        else:
-            answer = jarvis_process(question)
-            speak(answer)
+        # Выход
+        if "отбой" in clean_question or "выход" in clean_question:
+            jarvis_voice.say("Хорошего дня, сэр.")
+            jarvis_voice.wait()
+            break
+
+        # Режим сна
+        if "помолчи" in clean_question or "усни" in clean_question or "режим ожидания" in clean_question:
+            sleeping = True
+            jarvis_voice.say("Перехожу в режим ожидания. Назовите моё имя, когда понадоблюсь, сэр.")
+            jarvis_voice.wait()
+            continue
+
+        # Очистка слов-триггеров
+        for w in tbr:
+            clean_question = clean_question.replace(w, "").strip()
+
+        # Отправка в мозг
+        answer = jarvis_process(clean_question)
+
+        # Озвучка ответа
+        jarvis_voice.say(answer)
+        jarvis_voice.wait()
+
+except KeyboardInterrupt:
+    print("\n[Программа завершена пользователем]")

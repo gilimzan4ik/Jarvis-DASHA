@@ -14,3 +14,4 @@ memory.json
 API
 #A script for parsing a college website and generating the schedule.
 schedule.py
+voice_cache

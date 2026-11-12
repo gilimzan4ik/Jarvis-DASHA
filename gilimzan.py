@@ -1,6 +1,10 @@
-import os, webbrowser, subprocess, json
-import time, requests
-from datetime import datetime
+import os
+import json
+import time
+import requests
+import subprocess
+import webbrowser
+
 from groq import Groq
 
 links_file = "apps.json"
@@ -243,6 +247,9 @@ def ai_gilimzan(sms):
         return reply
 
     except Exception as e:
+        if "403" in str(e):
+            open_app("Happ_app")
+            return "Сэр, включи VPN"
         return f"Сэр, произошла ошибка при обращении к нейросети: {e}"
 
 def jarvis_process(cmd):
@@ -256,21 +263,29 @@ def jarvis_process(cmd):
             open_app("ex_conf")
             return "Запускаю протокол Скучаю По Бывшей"
 
-
         elif "покажи диану" in cmd:
             open_app("Happ_app")
             open_app("diana_conf")
             return "Отличный выбор! У нее как раз недавно вышло новое видео"
+
+        elif "хочу настю" in cmd:
+            open_app("Happ_app")
+            open_app("nastya_conf")
+            return "Ах вот как ты со мной!"
 
         elif "расписание" in cmd:
             open_app("ukrtb_site")
             weather = get_weather()
             return f"Сейчас на улице: {weather}"
 
-        elif "ютуб" in cmd or "youtube" in cmd:
+        elif "ютуб" in cmd:
             open_app("Happ_app")
-            open_app("Youtube_app")
+            open_app("Youtube_site")
             return "Приятного просмотра"
+
+        elif "музыку" in cmd:
+            open_app("YandexMusic_app")
+            return "Слушайте"
 
         elif "шухер" in cmd:
             os.system("taskkill /f /im chrome.exe >nul 2>&1")
@@ -294,7 +309,7 @@ def jarvis_process(cmd):
             os.system("shutdown /s /t 0")
             return "До новых встречь, сэр"
 
-        elif "мах" in cmd:
+        elif "национальный" in cmd:
             open_app("max_site")
             return "О боже"
 
