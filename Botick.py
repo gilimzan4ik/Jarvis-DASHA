@@ -21,7 +21,7 @@ def start_message(message):
 
 @bot.message_handler(func=lambda message: True)
 def message(message):
-    answer = jarvis_process(message.text)
+    answer = jarvis_process(message.text.lower())
     bot.send_message(
         message.chat.id, answer,
     )
