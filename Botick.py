@@ -1,4 +1,5 @@
 import telebot
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton
 from gilimzan import jarvis_process
 
 token_file = "token.txt"
@@ -16,8 +17,16 @@ def start_message(message):
     bot.send_message(
         message.chat.id,
         f"Привет, я твой персональный помошник Джарвис для ПК. Отсюда ты можешь управлять своим компьтером удаленно, а также общаться с нейросетью, которая знает тебя.",
+        reply_markup=get_main_keyboard()
     )
 
+def get_main_keyboard():
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+    keyboard.row(KeyboardButton("Давай поработаем"))
+    keyboard.row(KeyboardButton("впн"))
+    keyboard.row(KeyboardButton("Пароли"))
+    keyboard.row(KeyboardButton("Расписание"))
+    return keyboard
 
 @bot.message_handler(func=lambda message: True)
 def message(message):
