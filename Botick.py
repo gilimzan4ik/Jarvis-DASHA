@@ -22,6 +22,8 @@ def start_message(message):
 @bot.message_handler(func=lambda message: True)
 def message(message):
     answer = jarvis_process(message.text.lower())
+    if not answer: answer = "Выполнено, сэр"
+
     bot.send_message(
         message.chat.id, answer,
     )
@@ -30,12 +32,4 @@ def message(message):
 
 
 
-
-
-
-
-
-
-
-
-bot.infinity_polling()
+bot.infinity_polling(none_stop=True)
