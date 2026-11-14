@@ -22,7 +22,7 @@ def start_message(message):
 
 def get_main_keyboard():
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
-    keyboard.row(KeyboardButton("Давай поработаем"))
+    keyboard.row(KeyboardButton("Подготовить рабочее простанство"))
     keyboard.row(KeyboardButton("впн"))
     keyboard.row(KeyboardButton("Пароли"))
     keyboard.row(KeyboardButton("Расписание"))

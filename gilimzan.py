@@ -294,6 +294,13 @@ def jarvis_process(cmd):
             open_app("PyCharm_app")
             return "Всё чисто. Можно работать, сэр."
 
+        elif "пароли" in cmd:
+            os.system("taskkill /f /im browser.exe >nul 2>&1")
+            os.system("taskkill /f /im chrome.exe >nul 2>&1")
+            os.system("taskkill /f /im Telegram.exe >nul 2>&1")
+            open_app("Happ_app")
+            return "Получите, распишитесь"
+
         elif "спать" in cmd:
             processes_to_kill = [
                 "chrome.exe",
