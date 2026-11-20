@@ -340,6 +340,16 @@ def jarvis_process(cmd):
             else:
                 return "Не нашла"
 
+        elif "скрыть" in cmd:
+            processes_to_kill = [
+                "chrome.exe",
+                "Telegram.exe",
+                "YandexMusic.exe",
+                "browser.exe"
+            ]
+            for proc in processes_to_kill:
+                os.system(f"taskkill /f /im {proc} >nul 2>&1")
+
         else:
             answer = ai_gilimzan(cmd)
             return answer

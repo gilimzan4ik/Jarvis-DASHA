@@ -25,7 +25,7 @@ def get_main_keyboard():
     keyboard.row(KeyboardButton("Подготовить рабочее простанство"))
     keyboard.row(KeyboardButton("впн"))
     keyboard.row(KeyboardButton("Пароли"))
-    keyboard.row(KeyboardButton("Расписание"))
+    keyboard.row(KeyboardButton("Скрыть"))
     return keyboard
 
 @bot.message_handler(func=lambda message: True)
